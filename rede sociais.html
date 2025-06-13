@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redes Sociais | DebugPop | Cultura Geek-Tech</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-purple: #6A35FF;
+            --neon-blue: #00D1FF;
+            --neon-pink: #FF2D75;
+            --neon-green: #00FF9D;
+            --dark-bg: #121212;
+            --card-bg: #1E1E1E;
+            --text-white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--dark-bg);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(106, 53, 255, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-icon i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        .logo-text {
+            font-weight: bold;
+            font-size: 24px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        nav a.active {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+        
+        /* Hero Section */
+        .social-hero {
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://via.placeholder.com/1920x300/0a0a1a/6A35FF?text=Comunidade+DebugPop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .social-hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .social-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
+        }
+        
+        .social-hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+        
+        /* Social Platforms */
+        .social-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .platform-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 53, 255, 0.3);
+            border-color: var(--neon-purple);
+        }
+        
+        .platform-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .platform-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+        
+        .platform-icon.discord {
+            background-color: #5865F2;
+        }
+        
+        .platform-icon.twitter {
+            background-color: #1DA1F2;
+        }
+        
+        .platform-icon.instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+        }
+        
+        .platform-icon.github {
+            background-color: #333;
+        }
+        
+        .platform-icon.reddit {
+            background-color: #FF5700;
+        }
+        
+        .platform-icon.youtube {
+            background-color: #FF0000;
+        }
+        
+        .platform-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .platform-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .platform-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .platform-content {
+            padding: 20px;
+        }
+        
+        .platform-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .join-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid;
+        }
+        
+        .join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .join-btn.discord {
+            background-color: #5865F2;
+            border-color: #5865F2;
+            color: white;
+        }
+        
+        .join-btn.twitter {
+            background-color: transparent;
+            border-color: #1DA1F2;
+            color: #1DA1F2;
+        }
+        
+        .join-btn.instagram {
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D);
+            border-color: transparent;
+            color: white;
+        }
+        
+        .join-btn.github {
+            background-color: transparent;
+            border-color: #333;
+            color: #333;
+        }
+        
+        .join-btn.reddit {
+            background-color: #FF5700;
+            border-color: #FF5700;
+            color: white;
+        }
+        
+        .join-btn.youtube {
+            background-color: #FF0000;
+            border-color: #FF0000;
+            color: white;
+        }
+        
+        /* Community Highlights */
+        .community-section {
+            margin-top: 60px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--neon-pink);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--neon-purple), var(--neon-blue));
+            border-radius: 3px;
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .highlight-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .highlight-card:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 53, 255, 0.2);
+        }
+        
+        .highlight-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .highlight-content {
+            padding: 20px;
+        }
+        
+        .highlight-source {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .source-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .source-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .highlight-text {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .highlight-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+        
+        .highlight-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            color: var(--neon-blue);
+        }
+        
+        /* Newsletter */
+        .newsletter-section {
+            margin-top: 60px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid var(--neon-purple);
+        }
+        
+        .newsletter-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--neon-green);
+        }
+        
+        .newsletter-desc {
+            max-width: 600px;
+            margin: 0 auto 25px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 30px 0 0 30px;
+            border: 1px solid var(--neon-purple);
+            background-color: rgba(30, 30, 30, 0.7);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .newsletter-btn {
+            padding: 12px 25px;
+            border-radius: 0 30px 30px 0;
+            background: linear-gradient(to right, var(--neon-purple), var(--neon-blue));
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .social-hero {
+                height: 200px;
+            }
+            
+            .social-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .social-hero p {
+                font-size: 1rem;
+            }
+            
+            .social-platforms {
+                grid-template-columns: 1fr;
+            }
+            
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="logo-text">DebugPop</div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="game.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li><a href="filme.html"><i class="fas fa-film"></i> Filmes</a></li>
+                    <li><a href="meme.html"><i class="far fa-laugh-squint"></i> Memes</a></li>
+                    <li><a href="rede sociais.html"><i class="fas fa-users"></i> Comunidade</a></li>
+                    <li><a href="musica.html"><i class="fas fa-music"></i> Música</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Busque na comunidade...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Banner -->
+    <section class="social-hero">
+        <div class="social-hero-content">
+            <h1 class="page-title">Comunidade DebugPop</h1>
+            <p>Conecte-se com outros geeks, devs e entusiastas de tecnologia</p>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Social Platforms -->
+        <div class="social-platforms">
+            <!-- Discord -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon discord">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>Discord</h3>
+                        <p>Nosso servidor principal</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>5.2k membros</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-comments"></i>
+                                <span>Ativo 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Participe de discussões ao vivo, eventos exclusivos, canais de ajuda para devs e muito mais em nossa comunidade no Discord.
+                    </p>
+                    <a href="#" class="join-btn discord">
+                        <i class="fab fa-discord"></i> Entrar no Discord
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Twitter -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>Twitter</h3>
+                        <p>Notícias e memes diários</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>42k seguidores</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-retweet"></i>
+                                <span>Alta interação</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Fique por dentro das últimas notícias geek, memes tech e conteúdos exclusivos que postamos diariamente.
+                    </p>
+                    <a href="#" class="join-btn twitter">
+                        <i class="fab fa-twitter"></i> Seguir no Twitter
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Instagram -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>Instagram</h3>
+                        <p>Conteúdo visual e stories</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>35k seguidores</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-heart"></i>
+                                <span>3k curtidas/dia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Memes visuais, behind the scenes, infográficos tech e muito mais em nosso Instagram.
+                    </p>
+                    <a href="#" class="join-btn instagram">
+                        <i class="fab fa-instagram"></i> Seguir no Instagram
+                    </a>
+                </div>
+            </div>
+            
+            <!-- GitHub -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon github">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>GitHub</h3>
+                        <p>Códigos e projetos open-source</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-code-branch"></i>
+                                <span>87 repositórios</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-star"></i>
+                                <span>1.2k estrelas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Acesse nossos projetos open-source, contribua ou use em seus próprios projetos. Tudo 100% gratuito!
+                    </p>
+                    <a href="#" class="join-btn github">
+                        <i class="fab fa-github"></i> Ver no GitHub
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Reddit -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon reddit">
+                        <i class="fab fa-reddit"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>Reddit</h3>
+                        <p>Discussões profundas</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>12k membros</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-comment"></i>
+                                <span>Discussões ativas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Participe de discussões mais técnicas e aprofundadas sobre tecnologia, games e cultura geek.
+                    </p>
+                    <a href="#" class="join-btn reddit">
+                        <i class="fab fa-reddit"></i> Entrar no Subreddit
+                    </a>
+                </div>
+            </div>
+            
+            <!-- YouTube -->
+            <div class="platform-card">
+                <div class="platform-header">
+                    <div class="platform-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="platform-info">
+                        <h3>YouTube</h3>
+                        <p>Conteúdo em vídeo</p>
+                        <div class="platform-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>15k inscritos</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-play"></i>
+                                <span>2 vídeos/semana</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-description">
+                        Análises de filmes/games, tutoriais de programação, react a cenas tech e muito mais em nosso canal.
+                    </p>
+                    <a href="#" class="join-btn youtube">
+                        <i class="fab fa-youtube"></i> Inscrever-se
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Community Highlights -->
+        <section class="community-section">
+            <h2 class="section-title">Destaques da Comunidade</h2>
+            <div class="highlights-grid">
+                <!-- Post 1 -->
+                <div class="highlight-card">
+                    <img src="https://via.placeholder.com/600x400/1E1E1E/FFFFFF?text=Game+Dev+Meetup" alt="Game Dev Meetup" class="highlight-image">
+                    <div class="highlight-content">
+                        <div class="highlight-source">
+                            <div class="source-icon" style="background-color: #5865F2;">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <div class="source-name">DebugPop Discord</div>
+                        </div>
+                        <p class="highlight-text">
+                            Nosso próximo meetup de Game Dev será no dia 15/10! Vamos discutir Unity vs. Unreal Engine com convidados especiais.
+                        </p>
+                        <div class="highlight-meta">
+                            <span>2 dias atrás</span>
+                            <span>1.2k visualizações</span>
+                        </div>
+                        <div class="highlight-actions">
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i> Curtir
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-comment"></i> Comentar
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-share"></i> Compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Post 2 -->
+                <div class="highlight-card">
+                    <img src="https://via.placeholder.com/600x400/1E1E1E/FFFFFF?text=Tech+Meme+Contest" alt="Tech Meme Contest" class="highlight-image">
+                    <div class="highlight-content">
+                        <div class="highlight-source">
+                            <div class="source-icon" style="background-color: #1DA1F2;">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="source-name">@DebugPop</div>
+                        </div>
+                        <p class="highlight-text">
+                            Participe do nosso concurso de memes tech! O tema dessa semana é "Quando o código compila na primeira vez". Premiação em gift cards!
+                        </p>
+                        <div class="highlight-meta">
+                            <span>1 semana atrás</span>
+                            <span>3.5k visualizações</span>
+                        </div>
+                        <div class="highlight-actions">
+                            <button class="action-btn">
+                                <i class="far fa-heart"></i> Curtir
+                            </button>
+                            <button class="action-btn">
+                                <i class="far fa-comment"></i> Comentar
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-share"></i> Compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Post 3 -->
+                <div class="highlight-card">
+                    <div class="highlight-content" style="padding: 0;">
+                        <div class="code-meme" style="margin: 0; height: 100%;">
+                            <pre>// Post do GitHub
+const community = {
+  name: "DebugPop",
+  members: 15000,
+  languages: ["JavaScript", "Python", "C#"],
+  projects: 87,
+  openSource: true,
+  contribute: function() {
+    console.log("PRs são bem-vindos!");
+  }
+};
+
+community.contribute();</pre>
+                        </div>
+                        <div class="highlight-content">
+                            <div class="highlight-source">
+                                <div class="source-icon" style="background-color: #333;">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <div class="source-name">DebugPop Open Source</div>
+                            </div>
+                            <p class="highlight-text">
+                                Novo projeto no ar: DebugPop-UI, uma biblioteca de componentes React com tema cyberpunk. Contribuições são bem-vindas!
+                            </p>
+                            <div class="highlight-meta">
+                                <span>3 dias atrás</span>
+                                <span>842 visualizações</span>
+                            </div>
+                            <div class="highlight-actions">
+                                <button class="action-btn">
+                                    <i class="far fa-heart"></i> Curtir
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-comment"></i> Comentar
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-share"></i> Compartilhar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="newsletter-section">
+            <h2 class="newsletter-title">Junte-se à Nossa Newsletter</h2>
+            <p class="newsletter-desc">
+                Receba semanalmente no seu email os melhores conteúdos geek-tech, destaques da comunidade, promoções exclusivas e muito mais!
+            </p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Seu melhor email" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">Assinar</button>
+            </form>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-reddit"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <p class="footer-text">Conectando a cultura pop com o mundo tech desde 2023</p>
+        
+        <div class="footer-text">DebugPop © 2023 - Todos os direitos reservados</div>
+    </footer>
+    
+    <script>
+        // Like button functionality
+        document.querySelectorAll('.action-btn .fa-heart').forEach(heart => {
+            heart.addEventListener('click', function() {
+                if (this.classList.contains('far')) {
+                    this.classList.remove('far');
+                    this.classList.add('fas');
+                    this.style.color = '#FF2D75';
+                    
+                    // Create floating heart animation
+                    const floatingHeart = document.createElement('div');
+                    floatingHeart.innerHTML = '<i class="fas fa-heart" style="color: #FF2D75;"></i>';
+                    floatingHeart.style.position = 'absolute';
+                    floatingHeart.style.fontSize = '20px';
+                    floatingHeart.style.animation = 'float-up 1s forwards';
+                    floatingHeart.style.pointerEvents = 'none';
+                    
+                    const rect = this.getBoundingClientRect();
+                    floatingHeart.style.left = `${rect.left}px`;
+                    floatingHeart.style.top = `${rect.top}px`;
+                    
+                    document.body.appendChild(floatingHeart);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        floatingHeart.remove();
+                    }, 1000);
+                } else {
+                    this.classList.remove('fas');
+                    this.classList.add('far');
+                    this.style.color = '';
+                }
+            });
+        });
+        
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            
+            // In a real implementation, this would send the email to your backend
+            alert(`Obrigado por assinar nossa newsletter! Um email de confirmação foi enviado para ${email}`);
+            this.querySelector('input').value = '';
+            
+            // Play success sound
+            new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3').play();
+        });
+        
+        // Platform card hover effects
+        document.querySelectorAll('.platform-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.platform-icon i');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        icon.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DebugPop | Cultura Geek-Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-purple: #6A35FF;
+            --neon-blue: #00D1FF;
+            --neon-pink: #FF2D75;
+            --neon-green: #00FF9D;
+            --dark-bg: #121212;
+            --card-bg: #1E1E1E;
+            --text-white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: var(--text-white);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--dark-bg);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(106, 53, 255, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-icon i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        .logo-text {
+            font-weight: bold;
+            font-size: 24px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        nav a:hover i {
+            transform: translateY(-3px);
+        }
+        
+        nav i {
+            transition: all 0.3s;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 20px;
+            padding: 8px 15px;
+            border: 1px solid var(--neon-purple);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 250px;
+        }
+        
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+        
+        .search-bar i {
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within i {
+            color: var(--neon-green);
+        }
+        
+        /* Hero Banner */
+        .hero {
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-1 {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x500/0a0a1a/6A35FF?text=Borderlands+Movie');
+        }
+        
+        .slide-2 {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x500/0a0a1a/00D1FF?text=Meme+Dev+8-bit');
+            background-size: 50px 50px;
+            image-rendering: pixelated;
+        }
+        
+        .slide-content {
+            padding: 0 10%;
+            max-width: 600px;
+        }
+        
+        .slide h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 209, 255, 0.7);
+        }
+        
+        .slide p {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-purple {
+            background: linear-gradient(to right, var(--neon-purple), var(--neon-blue));
+            color: white;
+        }
+        
+        .btn-pink {
+            background-color: var(--neon-pink);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background-color: var(--neon-blue);
+        }
+        
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid var(--neon-purple);
+        }
+        
+        .carousel-arrow:hover {
+            background-color: var(--neon-purple);
+        }
+        
+        .carousel-prev {
+            left: 30px;
+        }
+        
+        .carousel-next {
+            right: 30px;
+        }
+        
+        /* Main Content */
+        .main-container {
+            display: flex;
+            padding: 50px 5%;
+            gap: 30px;
+        }
+        
+        .posts-grid {
+            flex: 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .post-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .post-card:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 53, 255, 0.2);
+        }
+        
+        .post-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .code-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .post-card:hover .code-overlay {
+            opacity: 1;
+        }
+        
+        .code-overlay pre {
+            color: var(--neon-green);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .post-content {
+            padding: 15px;
+        }
+        
+        .post-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-white);
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .tag-movies {
+            background-color: #FF5555;
+        }
+        
+        .tag-marvel {
+            background-color: #5555FF;
+        }
+        
+        .tag-dev {
+            background-color: #55FF55;
+            color: #000;
+        }
+        
+        .post-interaction {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .interaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .interaction-btn:hover {
+            color: var(--neon-blue);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+        }
+        
+        .sidebar-widget {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, var(--neon-purple), var(--neon-blue));
+        }
+        
+        .meme-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .meme-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #333;
+        }
+        
+        .meme-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .meme-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .meme-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .meme-info {
+            flex: 1;
+        }
+        
+        .meme-votes {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--neon-pink);
+            font-size: 0.9rem;
+        }
+        
+        .ad-banner {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/300x250/1E1E1E/6A35FF?text=Steam+Deals');
+            height: 250px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--neon-purple);
+        }
+        
+        .ad-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/300x250/1E1E1E/6A35FF?text=Steam+Deals') center/cover;
+            filter: blur(2px);
+            z-index: -1;
+        }
+        
+        .ad-banner h3 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--neon-green);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .ad-banner p {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .ad-price {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--neon-pink);
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+        
+        .newsletter {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--neon-purple);
+        }
+        
+        .newsletter-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+        
+        .terminal-input {
+            background-color: #000;
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .terminal-prompt {
+            color: var(--neon-green);
+        }
+        
+        .terminal-input input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            width: calc(100% - 100px);
+        }
+        
+        .terminal-btn {
+            background-color: var(--neon-green);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .terminal-btn:hover {
+            background-color: #00cc88;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            padding: 50px 5%;
+            text-align: center;
+            border-top: 1px solid var(--neon-purple);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--neon-blue);
+            transform: translateY(-3px);
+        }
+        
+        .footer-text {
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .easter-egg {
+            cursor: pointer;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .easter-egg:hover {
+            color: var(--neon-pink);
+        }
+        
+        .ascii-art {
+            display: none;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            color: var(--neon-green);
+            white-space: pre;
+            font-size: 10px;
+        }
+        
+        /* Animations */
+        @keyframes pixel-explosion {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .like-animation {
+            animation: pixel-explosion 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="logo-text">DebugPop</div>
+            </div>
+            
+              
+            <nav>
+                <ul>
+                    <li><a href="game.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li><a href="filme.html"><i class="fas fa-film"></i> Filmes</a></li>
+                    <li><a href="meme.html"><i class="far fa-laugh-squint"></i> Memes</a></li>
+                    <li><a href="rede sociais.html"><i class="fas fa-users"></i> Comunidade</a></li>
+                    <li><a href="musica.html"><i class="fas fa-music"></i> Música</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Busque por 'Cyberpunk 2077', 'Stranger Things S5'...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="slide slide-1 active">
+            <div class="slide-content">
+                <h2>Borderlands: O Filme</h2>
+                <p>A adaptação do jogo de tiro e saque que conquistou milhões chega aos cinemas. Confira o trailer exclusivo!</p>
+                <a href="#" class="btn btn-purple">Assista ao trailer</a>
+            </div>
+        </div>
+        
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <h2>Quando o código compila na primeira vez</h2>
+                <p>O meme que todo dev já viveu. Crie sua própria versão e compartilhe com a comunidade!</p>
+                <a href="#" class="btn btn-pink">Crie seu meme</a>
+            </div>
+        </div>
+        
+        <div class="carousel-arrow carousel-prev">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="carousel-arrow carousel-next">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        
+        <div class="carousel-nav">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="posts-grid">
+            <!-- Post 1 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=Deadpool+%26+Wolverine" alt="Deadpool & Wolverine">
+                    <div class="code-overlay">
+                        <pre>print("Merc with a Mouth")</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Como o Deadpool quebra a 4ª parede (e o código também)</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-movies">#Filmes</span>
+                        <span class="tag tag-marvel">#Marvel</span>
+                        <span class="tag tag-dev">#DevHumor</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>248</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>42</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post 2 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=Cyberpunk+2077" alt="Cyberpunk 2077">
+                    <div class="code-overlay">
+                        <pre>if (nightCity) { hackThePlanet(); }</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Cyberpunk 2077: A redenção pós-lançamento</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-movies">#Games</span>
+                        <span class="tag tag-dev">#CDProjekt</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>189</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>35</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post 3 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=Dev+Meme" alt="Dev Meme">
+                    <div class="code-overlay">
+                        <pre>// TODO: Fix this later</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">10 memes que só devs entendem (e choram)</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-dev">#DevHumor</span>
+                        <span class="tag tag-movies">#Memes</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>421</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>87</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post 4 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=Stranger+Things" alt="Stranger Things">
+                    <div class="code-overlay">
+                        <pre>const upsideDown = new Dimension();</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Stranger Things S5: Teorias e códigos escondidos</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-movies">#Series</span>
+                        <span class="tag tag-marvel">#Netflix</span>
+                        <span class="tag tag-dev">#EasterEggs</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>312</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>64</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post 5 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=The+Last+of+Us" alt="The Last of Us">
+                    <div class="code-overlay">
+                        <pre>if (clicker.nearby) { holdBreath(); }</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">The Last of Us: Da gameplay para a TV</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-movies">#Series</span>
+                        <span class="tag tag-marvel">#HBO</span>
+                        <span class="tag tag-dev">#Games</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>276</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>53</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Post 6 -->
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="https://via.placeholder.com/400x200/1E1E1E/FFFFFF?text=Python+Meme" alt="Python Meme">
+                    <div class="code-overlay">
+                        <pre>import antigravity</pre>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">Por que Python é a linguagem dos memes?</h3>
+                    <div class="post-tags">
+                        <span class="tag tag-dev">#Python</span>
+                        <span class="tag tag-movies">#Memes</span>
+                    </div>
+                    <div class="post-interaction">
+                        <div class="interaction-btn like-btn">
+                            <i class="far fa-heart"></i> <span>198</span>
+                        </div>
+                        <div class="interaction-btn">
+                            <i class="far fa-comment"></i> <span>29</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Top 5 Tech Memes</h3>
+                <div class="meme-list">
+                    <div class="meme-item">
+                        <div class="meme-thumb">
+                            <img src="https://via.placeholder.com/60x60/1E1E1E/FFFFFF?text=M1" alt="Meme 1">
+                        </div>
+                        <div class="meme-info">
+                            <div>Compila na 1ª vez</div>
+                            <div class="meme-votes"><i class="fas fa-rocket"></i> 542</div>
+                        </div>
+                    </div>
+                    <div class="meme-item">
+                        <div class="meme-thumb">
+                            <img src="https://via.placeholder.com/60x60/1E1E1E/FFFFFF?text=M2" alt="Meme 2">
+                        </div>
+                        <div class="meme-info">
+                            <div>NaN NaN NaN Batman!</div>
+                            <div class="meme-votes"><i class="fas fa-rocket"></i> 487</div>
+                        </div>
+                    </div>
+                    <div class="meme-item">
+                        <div class="meme-thumb">
+                            <img src="https://via.placeholder.com/60x60/1E1E1E/FFFFFF?text=M3" alt="Meme 3">
+                        </div>
+                        <div class="meme-info">
+                            <div>Hello World 10 anos depois</div>
+                            <div class="meme-votes"><i class="fas fa-rocket"></i> 421</div>
+                        </div>
+                    </div>
+                    <div class="meme-item">
+                        <div class="meme-thumb">
+                            <img src="https://via.placeholder.com/60x60/1E1E1E/FFFFFF?text=M4" alt="Meme 4">
+                        </div>
+                        <div class="meme-info">
+                            <div>StackOverflow salvando vidas</div>
+                            <div class="meme-votes"><i class="fas fa-rocket"></i> 398</div>
+                        </div>
+                    </div>
+                    <div class="meme-item">
+                        <div class="meme-thumb">
+                            <img src="https://via.placeholder.com/60x60/1E1E1E/FFFFFF?text=M5" alt="Meme 5">
+                        </div>
+                        <div class="meme-info">
+                            <div>Quando o cliente muda tudo</div>
+                            <div class="meme-votes"><i class="fas fa-rocket"></i> 356</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ad-banner">
+                <h3>Ofertas Steam</h3>
+                <p>Promoções imperdíveis desta semana</p>
+                <div class="ad-price">-75%</div>
+                <a href="#" class="btn btn-purple">Confira</a>
+            </div>
+            
+            <div class="newsletter">
+                <h3 class="newsletter-title">Assine o DebugPop!</h3>
+                <div class="terminal-input">
+                    <span class="terminal-prompt">$ user@debugpop:~_ </span>
+                    <input type="email" placeholder="Digite seu email aqui">
+                </div>
+                <button class="terminal-btn">Enviar [ENTER]</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+        </div>
+        
+        <p class="footer-text">Conectando a cultura pop com o mundo tech desde 2023</p>
+        
+        <div class="easter-egg">Made with ♥ and caffeine</div>
+        <div class="ascii-art">
+   _____
+ /       \
+|  .   .  |
+|   ___   |
+ \__   __/
+    | |
+   /   \
+  /     \
+ | 404  |
+ | NaN  |
+ \_____/
+        </div>
+    </footer>
+    
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        
+        document.querySelector('.carousel-next').addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            // Play click sound
+            new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3').play();
+        });
+        
+        document.querySelector('.carousel-prev').addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            // Play click sound
+            new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3').play();
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Auto-rotate carousel
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+        
+        // Like button animation
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                const count = this.querySelector('span');
+                
+                icon.classList.remove('far', 'fa-heart');
+                icon.classList.add('fas', 'fa-heart');
+                icon.style.color = '#FF2D75';
+                
+                this.classList.add('like-animation');
+                
+                // Increment like count
+                count.textContent = parseInt(count.textContent) + 1;
+                
+                // Reset animation after it ends
+                setTimeout(() => {
+                    this.classList.remove('like-animation');
+                }, 500);
+            });
+        });
+        
+        // Easter egg
+        document.querySelector('.easter-egg').addEventListener('click', function() {
+            const asciiArt = document.querySelector('.ascii-art');
+            if (asciiArt.style.display === 'block') {
+                asciiArt.style.display = 'none';
+            } else {
+                asciiArt.style.display = 'block';
+            }
+        });
+        
+        // Hover effects for social icons
+        const socialIcons = {
+            'twitter': ['🐦', '🤖'],
+            'instagram': ['📸', '👾'],
+            'discord': ['💬', '👨‍💻']
+        };
+        
+        document.querySelectorAll('.social-link').forEach(link => {
+            const originalIcon = link.innerHTML;
+            let isHovered = false;
+            
+            link.addEventListener('mouseenter', function() {
+                if (isHovered) return;
+                
+                const platform = this.querySelector('i').classList[1].split('-')[1];
+                this.innerHTML = socialIcons[platform][0];
+                isHovered = true;
+                
+                setTimeout(() => {
+                    if (this.matches(':hover')) {
+                        this.innerHTML = socialIcons[platform][1];
+                    }
+                }, 300);
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.innerHTML = originalIcon;
+                isHovered = false;
+            });
+        });
+    </script>
+</body>
+</html>
